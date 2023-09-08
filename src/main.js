@@ -15,6 +15,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import request from './utils/request'
+import * as directive from './directive'
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
@@ -27,6 +28,17 @@ Vue.config.productionTip = false
 // 只要vue实例都可以访问$request
 // 组件的的vue实例是 this
 Vue.prototype.$request = request
+// 自定义全局指令
+// Vue.directive('imgerr', imgerr)
+// 批量注册指令
+// 方法一：for in
+// for (const key in directive) {
+//   Vue.directive(key, directive[key])
+// }
+// 方法二 object.keys() + forEach
+Object.keys(directive).forEach((item) => {
+  Vue.directive(item, directive[item])
+})
 
 new Vue({
   el: '#app',

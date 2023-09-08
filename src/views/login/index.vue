@@ -128,15 +128,17 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          console.log('发送网络请求')
-          this.login(this.loginForm).then((res) => {
-            console.log(res)
-            if (res.data.success) {
+          this.loading = true
+          this.login(this.loginForm)
+            .then((res) => {
               this.$router.push({ path: '/' })
-            } else {
-              this.$message.error(res.data.message)
-            }
-          })
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+            .finally(() => {
+              this.loading = false
+            })
         }
       })
     }
